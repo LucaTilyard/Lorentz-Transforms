@@ -70,8 +70,6 @@ class NonInertialWorldLine:
             Returns:
             None
         """
-        if self.cts != 0 and self.xs/self.cts > C:
-            raise ValueError("Velocity cannot exceed the speed")
         self.cts = cts
         self.xs = function(cts)
 
