@@ -25,5 +25,7 @@ def Function(cts):
 
 worldline = NonInertialWorldLine(cts, Function)
 worldline.Plot()
+
+print(worldline.cts)
 #plt.savefig("src/example.png")
 plt.show()
