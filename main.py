@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.animation import FuncAnimation
 
 C = 299792458
 
@@ -19,7 +20,7 @@ def Calculate_Lorentz_Factor(v):
 
         Returns:
         float: The Lorentz factor for the given velocity.
-        """
+    """
     return 1 / np.sqrt(1 - (v**2 / C**2))
 
 def Calculate_Beta(v):
@@ -38,7 +39,7 @@ def Calculate_Beta(v):
 
         Returns:
         float: The beta factor for the given velocity.
-        """
+    """
     return v / C
 
 class InertialWorldLine:
@@ -114,8 +115,59 @@ plt.ylim([0, 3*C])
 # Create and plot worldline.
 worldline = InertialWorldLine(cts, C/2)
 worldline.Plot()
-worldline.Lotentz_Transform(-0.5*C)
-worldline.Plot()
-plt.savefig("src/example.png")
+#plt.savefig("src/example.png")
 plt.show()
 
+
+# Create Second Worldline
+worldline2 = InertialWorldLine(cts, C/3)
+
+# Animation
+frames = 100
+Lorentz_interval = C*0.5/frames
+
+fig = plt.figure()
+ax = fig.add_subplot()
+
+# Configure initial plot
+# Even though this is exaclty the same as in the update function remving it causes issues
+
+ax.plot(cts, cts, linestyle="dotted", color="orange")
+ax.plot(-cts, cts, linestyle="dotted", color="orange")
+ax.spines['left'].set_position('center')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.spines['bottom'].set_position('zero')
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+ax.set_xlim([-3*C, 3*C])
+ax.set_ylim([0, 3*C])
+
+# Redraw the graph fro each frame.
+def update(frame):
+    ax.cla()
+    worldline.Lotentz_Transform(Lorentz_interval)
+    worldline2.Lotentz_Transform(Lorentz_interval)
+    ax.plot(worldline.xs, worldline.cts)
+    ax.plot(worldline2.xs, worldline2.cts)
+    print(frame)
+    ax.plot(cts, cts, linestyle="dotted", color="orange")
+    ax.plot(-cts, cts, linestyle="dotted", color="orange")
+    ax.spines['left'].set_position('center')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+    ax.spines['bottom'].set_position('zero')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+    ax.set_xlim([-3 * C, 3 * C])
+    ax.set_ylim([0, 3 * C])
+    return plt.plot(worldline.xs, worldline.cts)
+
+
+ani = FuncAnimation(fig, update, frames=frames, interval=50)
+
+ax = fig.add_subplot()
+
+plt.show()
+
+ani.save('animations/animation.mp4', writer='ffmpeg')
