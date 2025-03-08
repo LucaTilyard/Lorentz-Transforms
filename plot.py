@@ -1,5 +1,5 @@
 from src.methods import *
-from src.worldLines import InertialWorldLine
+from src.worldLines import *
 
 C = 299792458
 
@@ -18,7 +18,12 @@ plt.xlim([-3*C, 3*C])
 plt.ylim([0, 3*C])
 
 # Create and plot worldline.
-worldline = InertialWorldLine(cts, C/2)
+
+# Define function for worldline
+def Function(cts):
+    return(cts*0+C*0.5)
+
+worldline = NonInertialWorldLine(cts, Function)
 worldline.Plot()
 #plt.savefig("src/example.png")
 plt.show()

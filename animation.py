@@ -3,12 +3,12 @@ from src.worldLines import *
 C = 299792458
 
 # Create an array of time coordinates.
-cts = np.linspace(0, 3 * C, 100)*C
+cts = np.linspace(0, 3 * C, 2)*C
 
 # Created worldlines.
-worldline = InertialWorldLine(cts, C/2)
-worldline2 = InertialWorldLine(cts, C/3)
-light = InertialWorldLine(cts, C)
+worldline = InertialWorldLine(cts, C*0.9)
+worldline2 = InertialWorldLine(cts, C*0.5)
+worldline3 = InertialWorldLine(cts, 0)
 
 # Animation parameters
 frames = 100
@@ -36,10 +36,10 @@ def update(frame):
     ax.cla()
     worldline.Lotentz_Transform(Lorentz_interval)
     worldline2.Lotentz_Transform(Lorentz_interval)
-    light.Lotentz_Transform(Lorentz_interval)
+    worldline3.Lotentz_Transform(Lorentz_interval)
     ax.plot(worldline.xs, worldline.cts)
     ax.plot(worldline2.xs, worldline2.cts)
-    ax.plot(-light.xs, light.cts)
+    ax.plot(worldline3.xs, worldline3.cts)
     print(frame)
 
     ax.plot(cts, cts, linestyle="dotted", color="orange")
