@@ -70,9 +70,11 @@ class NonInertialWorldLine:
             Returns:
             None
         """
+        if self.cts != 0 and self.xs/self.cts > C:
+            raise ValueError("Velocity cannot exceed the speed")
         self.cts = cts
         self.xs = function(cts)
-        #don't allow faster then speed of light
+        return 1
 
     def __str__(self):
         """
