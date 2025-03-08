@@ -102,6 +102,7 @@ class NonInertialWorldLine:
         xs_old = self.xs
         self.cts = gamma * (cts_old - beta * xs_old)
         self.xs = gamma * (xs_old - beta*cts_old)
+        return 1
 
     def Plot(self):
         """
@@ -114,3 +115,4 @@ class NonInertialWorldLine:
                 None
         """
         plt.plot(self.xs, self.cts)
+        return 1
