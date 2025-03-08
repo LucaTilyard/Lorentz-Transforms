@@ -74,7 +74,6 @@ class NonInertialWorldLine:
             raise ValueError("Velocity cannot exceed the speed")
         self.cts = cts
         self.xs = function(cts)
-        return 1
 
     def __str__(self):
         """
