@@ -3,7 +3,7 @@ from src.worldLines import *
 C = 299792458
 
 # Create an array of time coordinates.
-cts = np.linspace(0, 3 * C, 2)*C
+cts = np.linspace(0, 3, 2)*C
 
 # Created worldlines.
 worldline = InertialWorldLine(cts, C*0.9)
