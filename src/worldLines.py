@@ -73,7 +73,7 @@ class NonInertialWorldLine:
         self.cts = cts
         self.xs = function(cts)
         gradients = np.diff(self.cts)/np.diff(self.xs)
-        if gradients < 1:
+        if min(gradients) < 1:
             raise ValueError("Velocity cannot exceed the speed of light")
 
     def __str__(self):

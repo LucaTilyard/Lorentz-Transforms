@@ -1,6 +1,7 @@
 from src.methods import *
 from src.worldLines import *
 import numpy as np
+import matplotlib.pyplot as plt
 
 C = 299792458
 
@@ -22,10 +23,12 @@ plt.ylim([0, 3*C])
 
 # Define function for worldline
 def Function(cts):
-    return(-1/(2*C)*cts**2+cts)
+    return(1/C * cts **2)
 
 worldline = NonInertialWorldLine(cts, Function)
 worldline.Plot()
 
 #plt.savefig("src/example.png")
 plt.show()
+
+print(np.diff(np.diff(cts)/np.diff(Function(cts))))
