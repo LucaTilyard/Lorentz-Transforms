@@ -1,9 +1,11 @@
 from src.methods import *
 from src.worldLines import *
+import numpy as np
+import matplotlib.pyplot as plt
 
 C = 299792458
 
-cts = np.linspace(0, 3 * C, 100)*C
+cts = np.linspace(0, 3, 100)*C
 
 # Configure plot spines and add dotted lightcone.
 plt.plot(cts, cts, linestyle="dotted", color="orange")
@@ -21,11 +23,12 @@ plt.ylim([0, 3*C])
 
 # Define function for worldline
 def Function(cts):
-    return(cts*0+C*0.5)
+    return(1/C * cts **2)
 
 worldline = NonInertialWorldLine(cts, Function)
 worldline.Plot()
 
-print(worldline.cts)
 #plt.savefig("src/example.png")
 plt.show()
+
+print(np.diff(np.diff(cts)/np.diff(Function(cts))))

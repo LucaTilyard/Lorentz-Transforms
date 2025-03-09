@@ -3,16 +3,20 @@ from src.worldLines import *
 C = 299792458
 
 # Create an array of time coordinates.
-cts = np.linspace(0, 3 * C, 2)*C
+cts = np.linspace(0, 3, 100)*C
+
+# Define function for worldline
+def function(cts):
+    return(-1/(2*C)*cts**2+cts)
 
 # Created worldlines.
-worldline = InertialWorldLine(cts, C*0.9)
+worldline = InertialWorldLine(cts, -C*0.7)
 worldline2 = InertialWorldLine(cts, C*0.5)
-worldline3 = InertialWorldLine(cts, 0)
+worldline3 = NonInertialWorldLine(cts, function)
 
 # Animation parameters
 frames = 100
-Lorentz_interval = C*0.5/frames
+Lorentz_interval = C*0.8/frames
 
 fig = plt.figure()
 ax = fig.add_subplot()
@@ -30,7 +34,7 @@ ax.yaxis.set_ticks_position('left')
 ax.set_xlim([-3*C, 3*C])
 ax.set_ylim([0, 3*C])
 
-# Redraw the graph fro each frame.
+# Redraw the graph from each frame.
 def update(frame):
     # Transform and plot worldlines
     ax.cla()
